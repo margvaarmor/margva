@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Маргарита Писарева — Artist Portfolio</title>
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f5f4f0;
+      --text:     #1a1a1a;
+      --muted:    #7a7a72;
+      --accent:   #1a1a1a;
+      --line:     #d4d2cc;
+      --serif:    'Georgia', 'Times New Roman', serif;
+      --sans:     'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-family: var(--serif);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    nav ul a {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 120px 0 100px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #hero .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    #hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: normal;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+
+    #hero .discipline {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    #hero .discipline span {
+      display: inline-block;
+      margin: 0 10px;
+      opacity: 0.4;
+    }
+
+    /* ─── SECTION LABELS ─── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ─── STATEMENT ─── */
+    #statement .text-block {
+      max-width: 620px;
+    }
+
+    #statement p {
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    #statement p:last-child { margin-bottom: 0; }
+
+    /* ─── PROJECTS ─── */
+    .project {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 48px;
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project:last-child { border-bottom: none; padding-bottom: 0; }
+    .project:first-child { padding-top: 0; }
+
+    .project-divider {
+      background: var(--line);
+      width: 1px;
+    }
+
+    .project-meta {
+      padding-right: 8px;
+    }
+
+    .project-index {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 5px 10px;
+    }
+
+    .project-body {
+      padding-left: 8px;
+    }
+
+    .project-body p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #3a3a38;
+      margin-bottom: 18px;
+    }
+
+    .project-body p:last-child { margin-bottom: 0; }
+
+    /* ─── IMAGE PLACEHOLDER ─── */
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #e8e6e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .img-placeholder span {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── ABOUT ─── */
+    #about .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    #about .bio p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #3a3a38;
+      margin-bottom: 18px;
+    }
+
+    .info-block { }
+
+    .info-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+    }
+
+    .info-item:first-child { border-top: 1px solid var(--line); }
+
+    .info-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* ─── CONTACT ─── */
+    #contact .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 0;
+    }
+
+    .contact-cell {
+      background: var(--bg);
+      padding: 36px 28px;
+    }
+
+    .contact-cell .c-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-cell a,
+    .contact-cell .c-value {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .contact-cell a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 680px) {
+      .container { padding: 0 20px; }
+      section { padding: 60px 0; }
+
+      #hero { padding: 80px 0 70px; }
+
+      nav ul { gap: 20px; }
+      nav ul a { font-size: 11px; }
+
+      .project {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .project-divider { display: none; }
+      .project-body { padding-left: 0; }
+      .project-meta { padding-right: 0; }
+
+      #about .grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      #contact .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer .container { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="container">
+    <a class="logo" href="#hero">Маргарита Писарева</a>
+    <ul>
+      <li><a href="#statement">Statement</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="container">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Маргарита<br>Писарева</h1>
+    <p class="discipline">
+      Ceramics &amp; Porcelain
+      <span>/</span>
+      Wearable Objects
+      <span>/</span>
+      Performance
+      <span>/</span>
+      Street Art
+    </p>
+  </div>
+</section>
+
+<!-- ─── STATEMENT ─── -->
+<section id="statement">
+  <div class="container">
+    <p class="section-label">Artist Statement</p>
+    <div class="text-block">
+      <p>
+        Керамика и фарфор существуют в культурной памяти как предметы дома —
+        хрупкие и статичные: сосуд на полке, плитка на стене, чашка в руках.
+        Я беру этот материал — с его историей, с его весом, с его ожиданиями —
+        и перемещаю его на тело. Кольчуга из фарфоровых пластин. Эполеты из
+        чешуек глазурованного фарфора. Объект, который одновременно защищает
+        и обнажает. Украшает — и угрожает.
+      </p>
+      <p>
+        Это не украшение. Это не одежда. Это не скульптура в традиционном
+        смысле. Именно в этом «не» и живёт моя практика.
+      </p>
+      <p>
+        Я работаю в пространстве между медиа, между институциями, между
+        системами смыслов. Между тем, что считается искусством высокой
+        традиции, и тем, что носят на теле. Между музейным залом и подиумом.
+        Между защитой и уязвимостью, властью и хрупкостью, манифестом
+        и молчанием.
+      </p>
+      <p>
+        Носимый арт-объект — wearable object — для меня не компромисс между
+        искусством и функциональностью. Это сама форма вопроса: что делает
+        с нами объект, когда он соприкасается с телом? Что происходит
+        с восприятием — зрителя и носителя — когда материал, привыкший
+        стоять, начинает двигаться? Когда хрупкое становится доспехом?
+      </p>
+      <p>
+        Провокация в моей работе — не самоцель. Это инструмент точности.
+        Она указывает на границу — туда, где заканчивается привычное и
+        начинается вопрос. Где заканчивается мода и начинается перформанс.
+        Где заканчивается перформанс и начинается ритуал. Где заканчивается
+        ритуал и начинается тело как территория смысла.
+      </p>
+      <p>
+        Фарфор я выбираю не случайно: это материал аристократии и
+        повседневности одновременно, материал, в котором закодированы статус,
+        нежность, колониальная история и промышленное производство. Надеть
+        фарфор — значит надеть всё это. Унести это с собой. Сделать видимым.
+      </p>
+      <p>
+        Моя практика — это исследование границ: границ медиа, границ тела,
+        границ того, что искусство позволяет себе требовать от зрителя.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Selected Works</p>
+
+    <!-- Project 01 -->
+    <div class="project">
+      <div class="project-meta">
+        <p class="project-index">01</p>
+        <h2 class="project-title">Паноптикальные крылья</h2>
+        <div class="project-tags">
+          <span class="tag">Porcelain</span>
+          <span class="tag">Installation</span>
+          <span class="tag">2024–2025</span>
+        </div>
+      </div>
+      <div class="project-divider"></div>
+      <div class="project-body">
+        <div class="img-placeholder"><span>Image</span></div>
+        <p>
+          Арт-объект — пара двухметровых крыльев, собранных из фарфоровых
+          пластин. На каждой пластине — взгляд реального человека. Формально
+          и символически работа отсылает к описанию херувимов, чьё тело
+          буквально покрыто глазами. Однако здесь божественное заменено
+          человеческим: вместо мистического всевидения — тысячи частных,
+          личных взглядов, собранных в единую структуру.
+        </p>
+        <p>
+          Фарфор усиливает двойственность: как материал он одновременно хрупок
+          и долговечен, сакрален и декоративен. Каждая пластина — одновременно
+          <em>relic</em> и <em>shard</em>. Крылья оказываются образом
+          коллективного взгляда: зритель оказывается под наблюдением, даже
+          когда сам рассматривает работу. Проект работает с темой
+          децентрализованного надзора — от соцсетей до уличных камер.
+        </p>
+      </div>
+    </div>
+
+    <!-- Project 02 -->
+    <div class="project">
+      <div class="project-meta">
+        <p class="project-index">02</p>
+        <h2 class="project-title">Доспехи</h2>
+        <div class="project-tags">
+          <span class="tag">Porcelain</span>
+          <span class="tag">Wearable Object</span>
+          <span class="tag">Performance</span>
+          <span class="tag">Series</span>
+        </div>
+      </div>
+      <div class="project-divider"></div>
+      <div class="project-body">
+        <div class="img-placeholder"><span>Image</span></div>
+        <p>
+          Серия работ из фарфора, отсылающая к доспехам: кольчуги, эполеты,
+          наколенники. Носимые конструкции из фарфоровых пластин и чешуек —
+          объекты, которые одновременно являются и вещами, и жестами. Они
+          отказываются быть «декором» или «украшением» и функционируют как
+          манифест: искусство может быть буквально надето на тело, сохраняя
+          свою автономию и агрессивную материальность.
+        </p>
+        <p>
+          Носимый фарфор одновременно защищает и ранит, привлекает и
+          отталкивает. Он делает видимыми те пределы, которые обычно
+          остаются невидимыми: где заканчивается «чистое искусство» и
+          начинается социальный акт, где заканчивается мода и начинается
+          перформанс идентичности.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About</p>
+    <div class="grid">
+      <div class="bio">
+        <p>
+          Маргарита Писарева — художник, керамист, перформер. Работает
+          с керамикой и фарфором как с медиа, выходя за пределы их
+          традиционных функциональных и декоративных ролей.
+        </p>
+        <p>
+          Живёт и работает в Санкт-Петербурге. Керамикой начала
+          заниматься в 2015 году в Петербурге. С 2019 по 2024 год —
+          собственная студия керамики в Калининграде.
+        </p>
+        <p>
+          Помимо керамики работает в области перформанса и стрит-арта,
+          в том числе реализует стрит-арт проекты с использованием
+          фарфора в публичном пространстве.
+        </p>
+      </div>
+      <div class="info-block">
+        <div class="info-item">
+          <span class="info-label">Education</span>
+          <span class="info-value">Культурология,<br>БФУ им. Канта,<br>Калининград</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Location</span>
+          <span class="info-value">Санкт-Петербург</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Media</span>
+          <span class="info-value">Ceramic, Porcelain,<br>Performance,<br>Street Art</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Practice</span>
+          <span class="info-value">Since 2015</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <div class="contact-grid">
+      <div class="contact-cell">
+        <p class="c-label">Email</p>
+        <a href="mailto:rita.const@mail.ru">rita.const@mail.ru</a>
+      </div>
+      <div class="contact-cell">
+        <p class="c-label">Phone</p>
+        <a href="tel:+79522854612" class="c-value">+7 952 285 46 12</a>
+      </div>
+      <div class="contact-cell">
+        <p class="c-label">Instagram</p>
+        <a href="https://instagram.com/margva_armor" target="_blank">@margva_armor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <p>© 2025 Маргарита Писарева</p>
+    <p>Saint Petersburg</p>
+  </div>
+</footer>
+
+</body>
+</html>
